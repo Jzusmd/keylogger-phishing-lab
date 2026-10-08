@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Correo — Banco Horizonte (DEMO EDUCATIVA)</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+        .banner-demo { background: #de350b; color: white; text-align: center; padding: 10px; font-weight: bold; font-size: 13px; margin-bottom: 15px; border-radius: 6px; }
+        .cliente-correo { max-width: 700px; margin: 0 auto; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .cabecera-cliente { background: #1a1a1a; color: white; padding: 15px 20px; font-size: 14px; }
+        .cabecera-cliente span { color: #999; margin-right: 8px; }
+        .datos-correo { padding: 20px; border-bottom: 1px solid #eee; }
+        .datos-correo .fila { margin: 8px 0; font-size: 14px; }
+        .datos-correo .fila strong { color: #333; display: inline-block; width: 80px; }
+        .datos-correo .fila span { color: #555; }
+        .asunto { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; }
+        .cuerpo-correo { padding: 30px; color: #333; font-size: 15px; line-height: 1.7; }
+        .logo-banco { text-align: center; margin-bottom: 25px; }
+        .logo-banco h1 { color: #003366; margin: 0; font-size: 28px; }
+        .logo-banco p { color: #666; margin: 5px 0 0 0; font-size: 13px; }
+        .cuerpo-correo p { margin: 15px 0; }
+        .boton-phishing {
+            display: inline-block;
+            background: #0052cc;
+            color: white;
+            padding: 14px 30px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        .boton-phishing:hover { background: #0040a3; }
+        .pie-correo { color: #999; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
+        .advertencia-demo { background: #fff4e5; border-left: 4px solid #ff9800; padding: 12px 15px; margin: 20px 0; font-size: 13px; color: #7a4a00; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="banner-demo">⚠️ DEMO EDUCATIVA — ESTE NO ES UN CORREO REAL ⚠️</div>
+
+<div class="cliente-correo">
+    <div class="cabecera-cliente">
+        <span>De:</span> seguridad@banco-horizonte.com<br>
+        <span>Para:</span> cliente@ejemplo.com<br>
+        <span>Fecha:</span> 07 de octubre de 2026, 05:10<br>
+    </div>
+
+    <div class="datos-correo">
+        <div class="fila"><strong>De:</strong> <span>Banco Horizonte &lt;seguridad@banco-horizonte.com&gt;</span></div>
+        <div class="fila"><strong>Para:</strong> <span>cliente@ejemplo.com</span></div>
+        <div class="asunto">⚠️ Actividad sospechosa detectada en su cuenta</div>
+    </div>
+
+    <div class="cuerpo-correo">
+        <div class="logo-banco">
+            <h1>Banco Horizonte</h1>
+            <p>Banca por Internet</p>
+        </div>
+
+        <p>Estimado cliente,</p>
+
+        <p>Hemos detectado <strong>actividad inusual</strong> en su cuenta de banca por internet. Por su seguridad, hemos <strong>bloqueado temporalmente el acceso</strong> hasta que verifiquemos su identidad.</p>
+
+        <p>Para reactivar su cuenta, por favor haga clic en el siguiente botón y complete la verificación:</p>
+
+        <div style="text-align: center;">
+            <a href="http://127.0.0.1:8080/" class="boton-phishing">🔒 Verificar mi cuenta</a>
+        </div>
+
+        <p>Si no completa la verificación en las próximas <strong>24 horas</strong>, su cuenta será <strong>suspendida permanentemente</strong>.</p>
+
+        <p>Atentamente,<br>Departamento de Seguridad<br>Banco Horizonte</p>
+
+        <div class="advertencia-demo">
+            ⚠️ <strong>Nota educativa:</strong> Este es un correo simulado para una exposición de hacking ético. No es un correo real. Todos los datos son ficticios.
+        </div>
+
+        <div class="pie-correo">
+            Este mensaje fue enviado automáticamente por el sistema de seguridad del Banco Horizonte (ficticio).<br>
+            Por favor no responda a este correo.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
